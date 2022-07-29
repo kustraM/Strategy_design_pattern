@@ -45,6 +45,7 @@ public:
         return result;
     }
 };
+
 class Slow : public Attack
 {
     std::string attack_algorithm() const override
@@ -54,16 +55,59 @@ class Slow : public Attack
     }
 };
 
+class IceAttack : public Attack
+{
+    std::string attack_algorithm() const override
+    {
+        std::string result = "IceAttack";
+        return result;
+    }
+};
+
+class Disintegrate : public Attack
+{
+    std::string attack_algorithm() const override
+    {
+        std::string result = "Disintegrate";
+        return result;
+    }
+};
+
+class Sunburst : public Attack
+{
+    std::string attack_algorithm() const override
+    {
+        std::string result = "Sunburst";
+        return result;
+    }
+};
+
 void PlayerAction()
 {
     std::cout << "Player choosed action\n";
-    Battle *context = new Battle(new FireBolt);
-    context->attack();
+    Battle *battle = new Battle(new FireBolt);
+    battle->attack();
     std::cout << "\n";
+
     std::cout << "Player choosed action\n";
-    context->set_strategy(new Slow);
-    context->attack();
-    delete context;
+    battle->set_strategy(new Slow);
+    battle->attack();
+    std::cout << "\n";
+
+    std::cout << "Player choosed action\n";
+    battle->set_strategy(new IceAttack);
+    battle->attack();
+    std::cout << "\n";
+
+    std::cout << "Player choosed action\n";
+    battle->set_strategy(new Disintegrate);
+    battle->attack();
+    std::cout << "\n";
+
+    std::cout << "Player choosed action\n";
+    battle->set_strategy(new Sunburst);
+    battle->attack();
+    delete battle;
 }
 
 int main()
