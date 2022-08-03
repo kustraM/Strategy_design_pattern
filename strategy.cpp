@@ -1,8 +1,3 @@
-/**
- * @todo zadawane obrażenia od ataków
- * @todo wybór przez gracza używanego ataku
- *
- */
 #include <iostream>
 #include <string>
 #include <time.h>
@@ -99,28 +94,49 @@ class Sunburst : public Attack
 void PlayerAction()
 {
     std::cout << "Player choosed action\n";
-    Battle *battle = new Battle(new FireBolt);
-    battle->attack();
-    std::cout << "\n";
+    Battle *battle = new Battle;
+    std::cout << "Choose your action:\n1 - Firebolt\n2 - Slow\n3 - IceAttack\n4 - Disintegrate\n5 - Sunburst\n";
+    int choice;
+    std::cout << "your choice: ";
+    std::cin >> choice;
 
-    std::cout << "Player choosed action\n";
-    battle->set_attack(new Slow);
-    battle->attack();
-    std::cout << "\n";
+    switch (choice)
+    {
+    case 1:
+        std::cout << "Player choosed action\n";
+        battle->set_attack(new FireBolt);
+        battle->attack();
+        std::cout << "\n";
+        break;
 
-    std::cout << "Player choosed action\n";
-    battle->set_attack(new IceAttack);
-    battle->attack();
-    std::cout << "\n";
+    case 2:
+        std::cout << "Player choosed action\n";
+        battle->set_attack(new Slow);
+        battle->attack();
+        std::cout << "\n";
+        break;
 
-    std::cout << "Player choosed action\n";
-    battle->set_attack(new Disintegrate);
-    battle->attack();
-    std::cout << "\n";
+    case 3:
+        std::cout << "Player choosed action\n";
+        battle->set_attack(new IceAttack);
+        battle->attack();
+        std::cout << "\n";
+        break;
 
-    std::cout << "Player choosed action\n";
-    battle->set_attack(new Sunburst);
-    battle->attack();
+    case 4:
+        std::cout << "Player choosed action\n";
+        battle->set_attack(new Disintegrate);
+        battle->attack();
+        std::cout << "\n";
+        break;
+
+    case 5:
+        std::cout << "Player choosed action\n";
+        battle->set_attack(new Sunburst);
+        battle->attack();
+        std::cout << "\n";
+        break;
+    }
     delete battle;
 }
 
