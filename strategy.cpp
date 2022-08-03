@@ -10,6 +10,13 @@ public:
     static int HP;
 };
 
+class Player
+{
+public:
+    virtual ~Player(){};
+    static int HP;
+};
+
 class Attack
 {
 public:
@@ -102,6 +109,28 @@ class Sunburst : public Attack
     }
 };
 
+class BosssAtack : public Attack
+{
+    std::string attack_algorithm() const override
+    {
+        std::cout << "Boss Attack" << std::endl;
+        int damage = rand() % 10 + 10;
+        std::string result = "Zadane obrażenia: " + std::to_string(damage);
+        Player::HP = Player::HP - damage;
+        return result;
+    }
+};
+
+void BossAction()
+{
+    std::cout << "Actual Player HP: " << Player::HP << std::endl;
+    Battle *battle = new Battle;
+    battle->set_attack(new BosssAtack);
+    battle->attack();
+    std::cout << "\n";
+    delete battle;
+}
+
 void PlayerAction()
 {
     std::cout << "Actual Boss HP: " << Boss::HP << std::endl;
@@ -157,14 +186,23 @@ void PlayerAction()
     delete battle;
 }
 int Boss::HP = 60;
+int Player::HP = 40;
 
 int main()
 {
     srand(time(NULL));
-    while (Boss::HP > 0)
+    while (Boss::HP > 0 && Player::HP > 0)
     {
         PlayerAction();
+        BossAction();
     }
-    std::cout << "Boss is dead, you win" << std::endl;
+    if (Boss::HP < 0)
+    {
+        std::cout << "Boss is dead, you win" << std::endl;
+    }
+    if (Player::HP < 0)
+    {
+        std::cout << "You died" << std::endl;
+    }
     return 0;
 }
