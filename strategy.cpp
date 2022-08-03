@@ -123,7 +123,6 @@ class BosssAtack : public Attack
 
 void BossAction()
 {
-    std::cout << "Actual Player HP: " << Player::HP << std::endl;
     Battle *battle = new Battle;
     battle->set_attack(new BosssAtack);
     battle->attack();
@@ -133,7 +132,6 @@ void BossAction()
 
 void PlayerAction()
 {
-    std::cout << "Actual Boss HP: " << Boss::HP << std::endl;
     std::cout << "Player choosed action\n";
     Battle *battle = new Battle;
     std::cout << "Choose your action:\n"
@@ -193,7 +191,11 @@ int main()
     srand(time(NULL));
     while (Boss::HP > 0 && Player::HP > 0)
     {
+        std::cout << "Actual Player HP: " << Player::HP << std::endl;
+        std::cout << "Actual Boss HP: " << Boss::HP << std::endl;
         PlayerAction();
+        std::cout << "Actual Player HP: " << Player::HP << std::endl;
+        std::cout << "Actual Boss HP: " << Boss::HP << std::endl;
         BossAction();
     }
     if (Boss::HP < 0)
