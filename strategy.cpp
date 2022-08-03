@@ -3,6 +3,13 @@
 #include <time.h>
 #include <algorithm>
 
+class Boss
+{
+public:
+    virtual ~Boss() {}
+    static int HP;
+};
+
 class Attack
 {
 public:
@@ -44,6 +51,7 @@ public:
         std::cout << "Firebolt" << std::endl;
         int damage = rand() % 4 + 6;
         std::string result = "Zadane obrażenia przeciwnikowi: " + std::to_string(damage);
+        Boss::HP = Boss::HP - damage;
         return result;
     }
 };
@@ -65,6 +73,7 @@ class IceAttack : public Attack
         std::cout << "IceAttack" << std::endl;
         int damage = rand() % 3 + 2;
         std::string result = "Zadane obrażenia przeciwnikowi: " + std::to_string(damage);
+        Boss::HP = Boss::HP - damage;
         return result;
     }
 };
@@ -76,6 +85,7 @@ class Disintegrate : public Attack
         std::cout << "Disintegrate" << std::endl;
         int damage = rand() % 5 + 15;
         std::string result = "Zadane obrażenia przeciwnikowi: " + std::to_string(damage);
+        Boss::HP = Boss::HP - damage;
         return result;
     }
 };
@@ -87,15 +97,22 @@ class Sunburst : public Attack
         std::cout << "Sunburst" << std::endl;
         int damage = rand() % 10 + 20;
         std::string result = "Zadane obrażenia przeciwnikowi: " + std::to_string(damage);
+        Boss::HP = Boss::HP - damage;
         return result;
     }
 };
 
 void PlayerAction()
 {
+    std::cout << "Actual Boss HP: " << Boss::HP << std::endl;
     std::cout << "Player choosed action\n";
     Battle *battle = new Battle;
-    std::cout << "Choose your action:\n1 - Firebolt\n2 - Slow\n3 - IceAttack\n4 - Disintegrate\n5 - Sunburst\n";
+    std::cout << "Choose your action:\n"
+              << "1 - Firebolt\n"
+              << "2 - Slow\n"
+              << "3 - IceAttack\n"
+              << "4 - Disintegrate\n"
+              << "5 - Sunburst\n";
     int choice;
     std::cout << "your choice: ";
     std::cin >> choice;
@@ -139,10 +156,15 @@ void PlayerAction()
     }
     delete battle;
 }
+int Boss::HP = 60;
 
 int main()
 {
     srand(time(NULL));
-    PlayerAction();
+    while (Boss::HP > 0)
+    {
+        PlayerAction();
+    }
+    std::cout << "Boss is dead, you win" << std::endl;
     return 0;
 }
